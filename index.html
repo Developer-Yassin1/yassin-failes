@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Yassin_Vip-HUP</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080b14;--bg2:#0f1420;--bg3:#161c2b;
+  --panel:rgba(22,28,43,.85);--panel-solid:#161c2b;
+  --txt:#e8edf7;--muted:#8b95ab;
+  --gold:#d4af37;--gold2:#f4d35e;
+  --purple:#7c3aed;--purple2:#a78bfa;
+  --border:rgba(212,175,55,.15);
+  --border-2:rgba(255,255,255,.06);
+  --danger:#ef4444;--success:#10b981;--warning:#f59e0b;
+  --glass:rgba(22,28,43,.6);
+  --glass-border:rgba(255,255,255,.08);
+}
+[data-theme="light"]{
+  --bg:#f6f7fb;--bg2:#fff;--bg3:#eef1f8;
+  --panel:rgba(255,255,255,.85);--panel-solid:#fff;
+  --txt:#0f1420;--muted:#6b7280;
+  --gold:#b8860b;--gold2:#d4af37;
+  --purple:#6d28d9;--purple2:#8b5cf6;
+  --border:rgba(184,134,11,.2);
+  --border-2:rgba(0,0,0,.06);
+  --glass:rgba(255,255,255,.7);
+  --glass-border:rgba(0,0,0,.06);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--txt);direction:rtl;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+input,textarea,select{font-family:inherit;outline:none;font-size:inherit}
+a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
+#app{height:100vh;height:100dvh;display:flex;flex-direction:column;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 0% 0%,rgba(124,58,237,.15) 0%,transparent 40%),
+             radial-gradient(circle at 100% 100%,rgba(212,175,55,.12) 0%,transparent 40%),var(--bg)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.fade-up{animation:fadeUp .4s ease}
+.loading-full{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);gap:20px}
+.spinner{width:52px;height:52px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+.loading-text{font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:4px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2),var(--purple2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 100%;animation:shimmer 2s linear infinite}
+.auth-wrap{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden}
+.auth-bg{position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(circle at 20% 20%,rgba(212,175,55,.25) 0%,transparent 40%),
+             radial-gradient(circle at 80% 80%,rgba(124,58,237,.3) 0%,transparent 45%),
+             linear-gradient(135deg,#050810,#0f1420)}
+.auth-card{width:100%;max-width:420px;background:var(--glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border);border-radius:24px;padding:32px 26px;position:relative;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);animation:fadeUp .5s ease}
+.auth-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7}
+.brand-logo{text-align:center;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:10px}
+.brand-logo .crown{font-size:34px;filter:drop-shadow(0 0 15px rgba(212,175,55,.7));animation:float 3s ease-in-out infinite}
+.brand-title{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;letter-spacing:1px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2),var(--purple2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.brand-sub{text-align:center;color:var(--muted);font-size:12px;margin-bottom:24px;letter-spacing:2px;font-family:'Orbitron',sans-serif}
+.field{margin-bottom:14px;position:relative}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;letter-spacing:.5px}
+.field input,.field textarea,.field select{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--border-2);
+  border-radius:12px;padding:13px 16px;color:var(--txt);font-size:14.5px;transition:.25s}
+[data-theme="light"] .field input,[data-theme="light"] .field textarea,[data-theme="light"] .field select{background:rgba(0,0,0,.03)}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+.field textarea{resize:vertical;min-height:80px}
+.btn{width:100%;padding:14px 20px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a0e1a;
+  font-weight:800;font-size:15px;transition:.25s;display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 8px 24px rgba(212,175,55,.3)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 32px rgba(212,175,55,.45)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-primary{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 8px 24px rgba(124,58,237,.35)}
+.btn-ghost{background:transparent;border:1px solid var(--border-2);color:var(--txt);box-shadow:none}
+.btn-ghost:hover{background:rgba(255,255,255,.05);border-color:var(--gold)}
+.btn-danger{background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;box-shadow:0 8px 24px rgba(239,68,68,.35)}
+.btn-success{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 8px 24px rgba(16,185,129,.35)}
+.switch-auth{text-align:center;margin-top:18px;font-size:13px;color:var(--muted)}
+.switch-auth button{color:var(--gold);font-weight:700;padding:2px 6px;border-radius:6px}
+.err{color:var(--danger);font-size:12.5px;margin-top:8px;min-height:16px;text-align:center}
+.topbar{height:64px;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-2);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;z-index:50;position:relative}
+.topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(212,175,55,.4),transparent)}
+.topbar .brand-mini{display:flex;align-items:center;gap:8px;font-family:'Orbitron',sans-serif;font-weight:800;font-size:15px;letter-spacing:.5px}
+.topbar .brand-mini .c{font-size:20px;filter:drop-shadow(0 0 10px rgba(212,175,55,.6))}
+.topbar .brand-mini span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar h1{font-size:17px;margin:0;flex:1;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.icon-btn{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;
+  transition:.2s;position:relative;flex-shrink:0}
+.icon-btn:hover{background:rgba(255,255,255,.06)}
+.page{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:80px}
+.page::-webkit-scrollbar{width:6px}
+.page::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold),var(--purple));border-radius:4px}
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:70px;background:var(--glass);backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border-2);display:flex;
+  padding-bottom:env(safe-area-inset-bottom);z-index:100}
+.tabbar::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(212,175,55,.5),transparent)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  font-size:10.5px;color:var(--muted);position:relative;transition:.25s;font-weight:600}
+.tab .ic{font-size:22px;transition:.25s}
+.tab.active{color:var(--gold)}
+.tab.active .ic{transform:translateY(-2px) scale(1.08);filter:drop-shadow(0 0 10px rgba(212,175,55,.6))}
+.tab.active::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--purple2));border-radius:0 0 4px 4px}
+.cats-bar{display:flex;gap:8px;overflow-x:auto;padding:14px 14px 6px;scrollbar-width:none}
+.cats-bar::-webkit-scrollbar{display:none}
+.chip{padding:8px 16px;background:var(--glass);border:1px solid var(--border-2);border-radius:20px;
+  font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;transition:.2s;cursor:pointer;
+  display:flex;align-items:center;gap:6px}
+.chip:hover{border-color:var(--gold)}
+.chip.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a0e1a;border-color:transparent;
+  box-shadow:0 4px 16px rgba(212,175,55,.4);font-weight:700}
+.section-title{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 10px}
+.section-title h2{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+.section-title h2 .dash{width:4px;height:20px;background:linear-gradient(180deg,var(--gold),var(--purple));border-radius:2px}
+.section-title .count{font-size:11px;color:var(--muted);background:var(--glass);padding:3px 10px;
+  border-radius:10px;border:1px solid var(--border-2);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 14px 20px}
+@media (min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border-2);border-radius:18px;overflow:hidden;cursor:pointer;transition:.3s;
+  position:relative;display:flex;flex-direction:column;animation:fadeUp .4s ease both}
+.card:hover{transform:translateY(-4px);border-color:rgba(212,175,55,.4);
+  box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.card-img{width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,var(--bg3),var(--bg2));
+  display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.card:hover .card-img img{transform:scale(1.08)}
+.card-img .placeholder{font-size:48px;opacity:.3}
+.card-badge{position:absolute;top:8px;inset-inline-end:8px;padding:4px 10px;border-radius:8px;
+  font-size:10px;font-weight:800;backdrop-filter:blur(10px);z-index:2}
+.badge-free{background:rgba(16,185,129,.9);color:#fff}
+.badge-paid{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a0e1a}
+.badge-code{background:rgba(124,58,237,.9);color:#fff}
+.badge-hot{position:absolute;top:8px;inset-inline-start:8px;background:linear-gradient(135deg,#ef4444,#f59e0b);
+  color:#fff;font-size:9px;font-weight:800;padding:4px 8px;border-radius:6px}
+.card-body{padding:12px}
+.card-name{font-size:13.5px;font-weight:700;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-cat{font-size:10.5px;color:var(--muted);margin-bottom:8px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.card-price{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.card-price.free{background:linear-gradient(135deg,#10b981,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.card-btn{padding:6px 12px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a0e1a;
+  font-size:11px;font-weight:800;display:flex;align-items:center;gap:4px}
+.empty{padding:60px 30px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.empty .big{font-size:70px;opacity:.25;animation:float 3s ease-in-out infinite}
+.empty .title{font-size:16px;font-weight:700;margin-top:6px}
+.empty .sub{font-size:13px;color:var(--muted);max-width:280px}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--glass);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border-2);
+  padding:13px 20px;border-radius:14px;z-index:9999;box-shadow:0 12px 40px rgba(0,0,0,.5);
+  font-size:14px;font-weight:600;animation:fadeUp .3s ease;max-width:90vw;
+  display:flex;align-items:center;gap:10px}
+.toast.ok{border-color:rgba(16,185,129,.4)}
+.toast.err{border-color:rgba(239,68,68,.4)}
+.toast.info{border-color:rgba(212,175,55,.4)}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s}
+.modal{background:var(--panel);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  border:1px solid var(--glass-border);border-radius:20px;padding:24px;width:100%;max-width:440px;
+  max-height:88vh;overflow-y:auto;animation:fadeUp .3s;position:relative}
+.modal::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.modal h3{margin:0 0 18px;font-size:18px;font-weight:800;display:flex;align-items:center;gap:10px}
+.modal h3 .dash{width:4px;height:22px;background:linear-gradient(180deg,var(--gold),var(--purple));border-radius:2px}
+.modal .actions{display:flex;gap:10px;margin-top:20px}
+.modal .actions .btn{flex:1}
+.progress-bar{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:8px}
+.progress-bar>div{height:100%;background:linear-gradient(90deg,var(--gold),var(--purple));width:0;transition:width .15s;border-radius:3px}
+.av{width:50px;height:50px;border-radius:50%;background:var(--bg3);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--gold);overflow:hidden}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="loading-full">
+    <div class="spinner"></div>
+    <div class="loading-text">YASSIN_VIP-HUP</div>
+  </div>
+</div>
+
+<script type="module">
+/* ============================================================
+   Yassin_Vip-HUP — Final Fixed Version
+   by Yassin_Vip
+   ============================================================ */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  getDatabase, ref, set, push, update, remove, get, onValue,
+  serverTimestamp, onDisconnect
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB_0MIzStpQOlx38Y4Yr8h1k9jHoPa3bLs",
+  authDomain: "yassin-vip.firebaseapp.com",
+  databaseURL: "https://yassin-vip-default-rtdb.firebaseio.com",
+  projectId: "yassin-vip",
+  storageBucket: "yassin-vip.firebasestorage.app",
+  messagingSenderId: "812337664118",
+  appId: "1:812337664118:web:4a2226182b12510d6d0f57"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+const ADMIN_UID = "xkOGvuQ4aYQq5hc4HBhJI6nB05N2";
+const TELEGRAM_URL = "https://t.me/Elkomandayassin";
+const IMGBB_API_KEY = "39ac19c988d6aa4cf604fdc4396aab9c";
+
+let CURRENT_UID = null;
+let CURRENT_USER = null;
+let IS_ADMIN = false;
+let listeners = [];
+let currentScreen = 'home';
+let currentTab = 'store';
+let currentCategory = 'all';
+let allProducts = {};
+let productsUnsub = null;
+
+const $app = document.getElementById('app');
+
+let THEME = localStorage.getItem('yc_theme_v2') || 'dark';
+document.documentElement.setAttribute('data-theme', THEME);
+
+function toggleTheme(){
+  THEME = THEME === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', THEME);
+  localStorage.setItem('yc_theme_v2', THEME);
+  route(currentScreen, window.__routeParams || {});
+}
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initials = n => (n || '?').trim().charAt(0).toUpperCase();
+const fmtPrice = p => (!p || p === 0 || p === '0') ? 'مجاني' : `${p} ج.م`;
+
+function timeAgo(ts){
+  if(!ts) return '';
+  const diff = Date.now() - ts;
+  if(diff < 60000) return 'الآن';
+  if(diff < 3600000) return `منذ ${Math.floor(diff/60000)} د`;
+  if(diff < 86400000) return `منذ ${Math.floor(diff/3600000)} س`;
+  if(diff < 604800000) return `منذ ${Math.floor(diff/86400000)} ي`;
+  return new Date(ts).toLocaleDateString('ar-EG');
+}
+
+let toastTimer;
+function toast(msg, type='info'){
+  let el = document.querySelector('.toast');
+  if(el) el.remove();
+  clearTimeout(toastTimer);
+  el = document.createElement('div');
+  el.className = 'toast ' + type;
+  const icon = type === 'ok' ? '✅' : type === 'err' ? '❌' : 'ℹ️';
+  el.innerHTML = `<span>${icon}</span><span>${esc(msg)}</span>`;
+  document.body.appendChild(el);
+  toastTimer = setTimeout(() => el.remove(), 3200);
+}
+
+function clearListeners(){
+  listeners.forEach(u => { try { u(); } catch(e){} });
+  listeners = [];
+}
+
+/* ============ Upload Services ============ */
+
+async function uploadToImgBB(file, onProgress){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onprogress = e => {
+      if(e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100));
+    };
+    reader.onload = async () => {
+      try {
+        onProgress && onProgress(100);
+        const base64 = reader.result.split(',')[1];
+        const fd = new FormData();
+        fd.append('key', IMGBB_API_KEY);
+        fd.append('image', base64);
+        const res = await fetch('https://api.imgbb.com/1/upload', { method:'POST', body: fd });
+        const data = await res.json();
+        if(data.success) resolve(data.data.url);
+        else reject(new Error('ImgBB: فشل الرفع'));
+      } catch(err){ reject(new Error('ImgBB: ' + err.message)); }
+    };
+    reader.onerror = () => reject(new Error('ImgBB: فشل قراءة الملف'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadToTmpfiles(file, onProgress){
+  return new Promise((resolve, reject) => {
+    const fd = new FormData();
+    fd.append('file', file);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://tmpfiles.org/api/v1/upload');
+    xhr.upload.onprogress = e => {
+      if(e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100));
+    };
+    xhr.onload = () => {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        if(data.status === 'success' && data.data?.url){
+          const url = data.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+          resolve(url);
+        } else reject(new Error('Tmpfiles: فشل'));
+      } catch(err){ reject(new Error('Tmpfiles: فشل التحليل')); }
+    };
+    xhr.onerror = () => reject(new Error('Tmpfiles: خطأ اتصال'));
+    xhr.send(fd);
+  });
+}
+
+async function uploadTo0x0(file, onProgress){
+  return new Promise((resolve, reject) => {
+    const fd = new FormData();
+    fd.append('file', file);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://0x0.st');
+    xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 Yassin_Vip-HUP');
+    xhr.upload.onprogress = e => {
+      if(e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100));
+    };
+    xhr.onload = () => {
+      if(xhr.status === 200 && xhr.responseText.trim().startsWith('http')){
+        resolve(xhr.responseText.trim());
+      } else reject(new Error('0x0.st: فشل'));
+    };
+    xhr.onerror = () => reject(new Error('0x0.st: خطأ اتصال'));
+    xhr.send(fd);
+  });
+}
+
+async function uploadToUguu(file, onProgress){
+  return new Promise((resolve, reject) => {
+    const fd = new FormData();
+    fd.append('files[]', file);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://uguu.se/upload?output=text');
+    xhr.upload.onprogress = e => {
+      if(e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100));
+    };
+    xhr.onload = () => {
+      if(xhr.status === 200 && xhr.responseText.trim().startsWith('http')){
+        resolve(xhr.responseText.trim());
+      } else reject(new Error('Uguu: فشل'));
+    };
+    xhr.onerror = () => reject(new Error('Uguu: خطأ اتصال'));
+    xhr.send(fd);
+  });
+}
+
+async function uploadFileIO(file, onProgress){
+  const services = [
+    { name: 'Tmpfiles', fn: uploadToTmpfiles, maxSize: 100 * 1024 * 1024 },
+    { name: '0x0.st',   fn: uploadTo0x0,      maxSize: 512 * 1024 * 1024 },
+    { name: 'Uguu.se',  fn: uploadToUguu,     maxSize: 128 * 1024 * 1024 }
+  ];
+  let lastError = null;
+  for(const svc of services){
+    if(file.size > svc.maxSize) continue;
+    try {
+      console.log(`🔄 جرب ${svc.name}...`);
+      const url = await svc.fn(file, onProgress);
+      console.log(`✅ نجح ${svc.name}`);
+      return url;
+    } catch(err){
+      console.warn(`❌ فشل ${svc.name}:`, err.message);
+      lastError = err;
+    }
+  }
+  throw new Error('فشل رفع الملف. ' + (lastError?.message || ''));
+}
+
+async function uploadFile(file, onProgress){
+  const isImg = file.type.startsWith('image/');
+  if(isImg){
+    if(file.size > 32 * 1024 * 1024) throw new Error('الصورة كبيرة (32MB)');
+    return await uploadToImgBB(file, onProgress);
+  }
+  if(file.size > 512 * 1024 * 1024) throw new Error('الملف كبير جدًا (512MB)');
+  return await uploadFileIO(file, onProgress);
+}
+
+const CATEGORIES = [
+  { id:'all', name:'الكل', ic:'🌐' },
+  { id:'apps', name:'تطبيقات', ic:'📱' },
+  { id:'games', name:'ألعاب', ic:'🎮' },
+  { id:'tools', name:'أدوات', ic:'🛠️' },
+  { id:'books', name:'كتب', ic:'📚' },
+  { id:'design', name:'تصميم', ic:'🎨' },
+  { id:'videos', name:'فيديو', ic:'🎬' },
+  { id:'other', name:'أخرى', ic:'📦' }
+];
+
+function route(screen, params = {}){
+  currentScreen = screen;
+  window.__routeParams = params;
+  render(screen, params);
+}
+
+function render(screen, params = {}){
+  if(screen === 'home') return renderHome();
+  if(screen === 'login') return renderAuth('login');
+  if(screen === 'register') return renderAuth('register');
+  if(screen === 'product') return renderProductPage(params.id);
+  if(screen === 'chat') return renderChat();
+  if(screen === 'admin') return renderAdmin();
+  if(screen === 'add-product') return renderAddProduct(params.id);
+  if(screen === 'profile') return renderProfile();
+  if(screen === 'orders') return renderOrders();
+}
+
+onAuthStateChanged(auth, async user => {
+  if(user){
+    CURRENT_UID = user.uid;
+    IS_ADMIN = user.uid === ADMIN_UID;
+    const snap = await get(ref(db, `users/${user.uid}`));
+    CURRENT_USER = snap.exists() ? snap.val() : {
+      uid:user.uid, name:user.displayName || 'مستخدم',
+      email:user.email, photo:user.photoURL || '',
+      createdAt: Date.now(), online: true
+    };
+    if(!snap.exists()) await set(ref(db, `users/${user.uid}`), CURRENT_USER);
+    await set(ref(db, `users/${user.uid}/online`), true);
+    await set(ref(db, `users/${user.uid}/lastSeen`), serverTimestamp());
+    onDisconnect(ref(db, `users/${user.uid}/online`)).set(false);
+    onDisconnect(ref(db, `users/${user.uid}/lastSeen`)).set(serverTimestamp());
+
+    if(productsUnsub) productsUnsub();
+    productsUnsub = onValue(ref(db, 'products'), snap => {
+      allProducts = snap.val() || {};
+      console.log('📦 عدد المنتجات:', Object.keys(allProducts).length);
+      if(currentScreen === 'home' && currentTab === 'store'){
+        renderStoreTab();
+      } else if(currentScreen === 'admin'){
+        renderAdmin();
+      }
+    });
+
+    route('home');
+  } else {
+    CURRENT_UID = null;
+    CURRENT_USER = null;
+    IS_ADMIN = false;
+    clearListeners();
+    if(productsUnsub){ productsUnsub(); productsUnsub = null; }
+    allProducts = {};
+    route('login');
+  }
+});
+
+function renderAuth(mode){
+  const isLogin = mode === 'login';
+  $app.innerHTML = `
+    <div class="auth-wrap">
+      <div class="auth-bg"></div>
+      <div class="auth-card">
+        <div class="brand-logo">
+          <div class="crown">👑</div>
+          <div class="brand-title">Yassin_Vip-HUP</div>
+        </div>
+        <div class="brand-sub">${isLogin ? 'SIGN IN' : 'CREATE ACCOUNT'}</div>
+        ${!isLogin ? `<div class="field"><label>الاسم الكامل</label><input id="fName" placeholder="اكتب اسمك" maxlength="40"></div>` : ''}
+        <div class="field"><label>البريد الإلكتروني</label><input id="fEmail" type="email" placeholder="you@example.com"></div>
+        <div class="field"><label>كلمة المرور</label><input id="fPass" type="password" placeholder="••••••••"></div>
+        ${!isLogin ? `<div class="field"><label>تأكيد كلمة المرور</label><input id="fPass2" type="password" placeholder="••••••••"></div>` : ''}
+        <div class="err" id="fErr"></div>
+        <button class="btn" id="submitBtn">${isLogin ? '🚀 تسجيل الدخول' : '✨ إنشاء الحساب'}</button>
+        <div class="switch-auth">
+          ${isLogin
+            ? `ليس لديك حساب؟ <button id="toReg">سجّل الآن</button>`
+            : `لديك حساب؟ <button id="toLogin">ادخل</button>`}
+        </div>
+        ${isLogin ? `<div class="switch-auth" style="margin-top:8px"><button id="forgot">نسيت كلمة المرور؟</button></div>` : ''}
+      </div>
+    </div>`;
+  const $err = document.getElementById('fErr');
+  document.getElementById('toReg')?.addEventListener('click', () => route('register'));
+  document.getElementById('toLogin')?.addEventListener('click', () => route('login'));
+  document.getElementById('forgot')?.addEventListener('click', async () => {
+    const email = document.getElementById('fEmail').value.trim();
+    if(!email){ $err.textContent = 'اكتب البريد أولاً'; return; }
+    try { await sendPasswordResetEmail(auth, email); toast('تم إرسال الرابط', 'ok'); }
+    catch(e){ $err.textContent = translateErr(e); }
+  });
+  const btn = document.getElementById('submitBtn');
+  btn.onclick = async () => {
+    $err.textContent = '';
+    const email = document.getElementById('fEmail').value.trim();
+    const pass = document.getElementById('fPass').value;
+    if(!email || !pass){ $err.textContent = 'املأ كل الحقول'; return; }
+    btn.disabled = true; btn.textContent = '...';
+    try {
+      if(isLogin){
+        await signInWithEmailAndPassword(auth, email, pass);
+      } else {
+        const name = document.getElementById('fName').value.trim();
+        const pass2 = document.getElementById('fPass2').value;
+        if(!name) throw new Error('الاسم مطلوب');
+        if(pass.length < 6) throw new Error('كلمة المرور 6 أحرف على الأقل');
+        if(pass !== pass2) throw new Error('كلمتا المرور غير متطابقتين');
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateProfile(cred.user, { displayName: name });
+        await set(ref(db, `users/${cred.user.uid}`), {
+          uid: cred.user.uid, name, email,
+          photo: '', bio: '', role: cred.user.uid === ADMIN_UID ? 'admin' : 'user',
+          createdAt: Date.now(), online: true, lastSeen: Date.now()
+        });
+        toast('تم إنشاء الحساب 🎉', 'ok');
+      }
+    } catch(e){
+      $err.textContent = translateErr(e);
+      btn.disabled = false;
+      btn.textContent = isLogin ? '🚀 تسجيل الدخول' : '✨ إنشاء الحساب';
+    }
+  };
+}
+
+function translateErr(e){
+  const m = e.message || '';
+  if(m.includes('email-already-in-use')) return 'البريد مسجّل بالفعل';
+  if(m.includes('invalid-credential') || m.includes('wrong-password')) return 'بيانات غير صحيحة';
+  if(m.includes('user-not-found')) return 'الحساب غير موجود';
+  if(m.includes('invalid-email')) return 'بريد غير صالح';
+  if(m.includes('weak-password')) return 'كلمة المرور ضعيفة';
+  if(m.includes('network')) return 'تعذّر الاتصال';
+  if(m.includes('too-many-requests')) return 'محاولات كثيرة';
+  return m || 'حدث خطأ';
+}
+
+function renderHome(){
+  $app.innerHTML = `
+    <div class="topbar">
+      <div class="brand-mini"><span class="c">👑</span><span>Yassin_Vip-HUP</span></div>
+      <div style="flex:1"></div>
+      <button class="icon-btn" id="btnTheme">${THEME === 'dark' ? '☀️' : '🌙'}</button>
+      ${IS_ADMIN ? `<button class="icon-btn" id="btnAdmin" style="color:var(--gold)">⚙️</button>` : ''}
+      <button class="icon-btn" id="btnProfile">👤</button>
+    </div>
+    <div class="page" id="homePage"></div>
+    <div class="tabbar">
+      <div class="tab ${currentTab === 'store' ? 'active' : ''}" data-tab="store"><div class="ic">🛍️</div>المتجر</div>
+      <div class="tab ${currentTab === 'chat' ? 'active' : ''}" data-tab="chat"><div class="ic">💬</div>الدردشة</div>
+      <div class="tab ${currentTab === 'orders' ? 'active' : ''}" data-tab="orders"><div class="ic">📦</div>مشترياتي</div>
+    </div>`;
+  document.getElementById('btnTheme').onclick = toggleTheme;
+  document.getElementById('btnProfile').onclick = () => route('profile');
+  document.getElementById('btnAdmin')?.addEventListener('click', () => route('admin'));
+  document.querySelectorAll('.tab').forEach(t => {
+    t.onclick = () => {
+      currentTab = t.dataset.tab;
+      if(currentTab === 'chat') return route('chat');
+      if(currentTab === 'orders') return route('orders');
+      renderHome();
+    };
+  });
+  if(currentTab === 'store') renderStoreTab();
+}
+
+function renderStoreTab(){
+  const page = document.getElementById('homePage');
+  if(!page) return;
+  const products = Object.values(allProducts || {});
+  const filtered = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
+  const sorted = filtered.sort((a, b) => {
+    if(a.pinned && !b.pinned) return -1;
+    if(!a.pinned && b.pinned) return 1;
+    return (b.createdAt || 0) - (a.createdAt || 0);
+  });
+  const featured = sorted.filter(p => p.featured).slice(0, 4);
+  const normal = sorted;
+  page.innerHTML = `
+    ${IS_ADMIN ? `<div style="padding:14px 14px 0"><button class="btn" id="addProductBtn" style="background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff">➕ إضافة منتج جديد</button></div>` : ''}
+    <div class="cats-bar">
+      ${CATEGORIES.map(c => `<div class="chip ${currentCategory === c.id ? 'active' : ''}" data-cat="${c.id}"><span>${c.ic}</span><span>${c.name}</span></div>`).join('')}
+    </div>
+    ${featured.length > 0 ? `
+      <div class="section-title"><h2><span class="dash"></span>⭐ مميزة</h2><span class="count">${featured.length}</span></div>
+      <div class="grid">${featured.map(p => renderCard(p)).join('')}</div>
+    ` : ''}
+    <div class="section-title"><h2><span class="dash"></span>${currentCategory === 'all' ? '🛍️ كل المنتجات' : CATEGORIES.find(c=>c.id===currentCategory)?.name || ''}</h2><span class="count">${normal.length}</span></div>
+    ${normal.length === 0 ? `
+      <div class="empty"><div class="big">📦</div><div class="title">لا توجد منتجات</div><div class="sub">${IS_ADMIN ? 'اضغط "إضافة منتج" لتبدأ' : 'ترقب قريبًا!'}</div></div>
+    ` : `<div class="grid">${normal.map(p => renderCard(p)).join('')}</div>`}
+  `;
+  document.getElementById('addProductBtn')?.addEventListener('click', () => route('add-product'));
+  page.querySelectorAll('.chip').forEach(c => {
+    c.onclick = () => { currentCategory = c.dataset.cat; renderStoreTab(); };
+  });
+  page.querySelectorAll('.card').forEach(el => {
+    el.onclick = () => route('product', { id: el.dataset.pid });
+  });
+}
+
+function renderCard(p){
+  const price = fmtPrice(p.price);
+  const isFree = !p.price || p.price === 0 || p.price === '0';
+  const badge = p.type === 'paid' ? `<div class="card-badge badge-paid">💰 مدفوع</div>`
+    : p.type === 'code' ? `<div class="card-badge badge-code">🔐 كود</div>`
+    : `<div class="card-badge badge-free">🆓 مجاني</div>`;
+  const hot = p.featured ? `<div class="badge-hot">🔥 مميز</div>` : '';
+  const img = p.image ? `<img src="${esc(p.image)}" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'placeholder',textContent:'📦'}))">` : `<div class="placeholder">📦</div>`;
+  const cat = CATEGORIES.find(c => c.id === p.category);
+  const catLabel = cat ? `${cat.ic} ${cat.name}` : '📦';
+  return `
+    <div class="card fade-up" data-pid="${esc(p.id)}">
+      <div class="card-img">${img}${badge}${hot}</div>
+      <div class="card-body">
+        <div class="card-name">${esc(p.name)}</div>
+        <div class="card-cat">${catLabel}</div>
+        <div class="card-foot">
+          <div class="card-price ${isFree ? 'free' : ''}">${esc(price)}</div>
+          <div class="card-btn">${isFree ? '⬇️ Get' : '🛒'}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderProductPage(pid){
+  const p = allProducts[pid];
+  if(!p){
+    $app.innerHTML = `<div class="topbar"><button class="icon-btn" id="back">←</button><h1>المنتج</h1></div><div class="empty"><div class="big">❌</div><div class="title">المنتج غير موجود</div></div>`;
+    document.getElementById('back').onclick = () => route('home');
+    return;
+  }
+  const isFree = !p.price || p.price === 0 || p.price === '0';
+  const cat = CATEGORIES.find(c => c.id === p.category);
+  const img = p.image ? `<img src="${esc(p.image)}" style="width:100%;height:100%;object-fit:cover">` : `<span style="font-size:80px">📦</span>`;
+  $app.innerHTML = `
+    <div class="topbar">
+      <button class="icon-btn" id="back">←</button>
+      <h1 style="font-size:15px">${esc(p.name)}</h1>
+      ${IS_ADMIN ? `<button class="icon-btn" id="editBtn" style="color:var(--gold)">✏️</button>` : ''}
+    </div>
+    <div class="page">
+      <div style="padding:20px 20px 0;text-align:center">
+        <div style="width:180px;height:180px;margin:0 auto;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,var(--bg3),var(--bg2));border:2px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center">
+          ${img}
+        </div>
+      </div>
+      <div style="padding:20px">
+        <h1 style="font-size:22px;font-weight:800;margin-bottom:8px">${esc(p.name)}</h1>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+          ${cat ? `<span class="chip active" style="font-size:11px;padding:5px 10px">${cat.ic} ${cat.name}</span>` : ''}
+          ${p.type === 'paid' ? `<span class="chip" style="font-size:11px;padding:5px 10px;border-color:var(--gold);color:var(--gold)">💰 مدفوع</span>` : ''}
+          ${p.type === 'code' ? `<span class="chip" style="font-size:11px;padding:5px 10px;border-color:var(--purple2);color:var(--purple2)">🔐 كود</span>` : ''}
+          ${p.type === 'free' ? `<span class="chip" style="font-size:11px;padding:5px 10px;border-color:var(--success);color:var(--success)">🆓 مجاني</span>` : ''}
+        </div>
+        ${p.description ? `<div style="background:var(--glass);padding:16px;border-radius:14px;border:1px solid var(--border-2);margin-bottom:16px;line-height:1.7;font-size:14.5px">${esc(p.description).replace(/\n/g, '<br>')}</div>` : ''}
+        ${p.youtube ? `
+          <div style="margin-bottom:16px">
+            <div style="font-weight:700;margin-bottom:8px;font-size:14px">🎬 فيديو الشرح</div>
+            <a href="${esc(p.youtube)}" target="_blank" class="btn btn-primary" style="text-decoration:none">▶️ شاهد على يوتيوب</a>
+          </div>
+        ` : ''}
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,.15),rgba(124,58,237,.15));border:1px solid var(--border);border-radius:16px;padding:18px;margin:20px 0;text-align:center">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;letter-spacing:1px">السعر</div>
+          <div style="font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">
+            ${isFree ? 'FREE' : fmtPrice(p.price)}
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          ${p.type === 'paid' ? `<a href="${TELEGRAM_URL}" target="_blank" class="btn" style="text-decoration:none;background:linear-gradient(135deg,#0088cc,#229ED9);color:#fff">🛒 شراء الآن — تليجرام</a>` : ''}
+          ${p.type === 'code' ? `<button class="btn btn-primary" id="getCodeBtn">🔐 إدخال الكود للتحميل</button>` : ''}
+          ${p.type === 'free' ? `<button class="btn btn-success" id="getFreeBtn">⬇️ تحميل مباشر</button>` : ''}
+          ${IS_ADMIN ? `<button class="btn btn-danger" id="deleteBtn" style="margin-top:8px">🗑️ حذف المنتج</button>` : ''}
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('back').onclick = () => route('home');
+  document.getElementById('editBtn')?.addEventListener('click', () => route('add-product', { id: pid }));
+  document.getElementById('getFreeBtn')?.addEventListener('click', () => downloadProduct(p));
+  document.getElementById('getCodeBtn')?.addEventListener('click', () => askForCode(p));
+  document.getElementById('deleteBtn')?.addEventListener('click', async () => {
+    if(!confirm('⚠️ حذف المنتج نهائيًا؟')) return;
+    try { await remove(ref(db, `products/${pid}`)); toast('تم الحذف', 'ok'); route('home'); }
+    catch(e){ toast('فشل الحذف', 'err'); }
+  });
+}
+
+function askForCode(p){
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <h3><span class="dash"></span>🔐 إدخال الكود</h3>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px">${p.youtube ? 'شاهد الفيديو للحصول على الكود' : 'ادخل الكود'}</p>
+      <div class="field"><label>الكود</label><input id="codeInp" placeholder="اكتب الكود..." autocomplete="off"></div>
+      <div class="err" id="codeErr"></div>
+      <div class="actions"><button class="btn btn-ghost" id="closeCode">إلغاء</button><button class="btn" id="submitCode">تحميل</button></div>
+    </div>`;
+  document.body.appendChild(modal);
+  const close = () => modal.remove();
+  modal.querySelector('#closeCode').onclick = close;
+  modal.onclick = e => { if(e.target === modal) close(); };
+  const inp = modal.querySelector('#codeInp');
+  inp.focus();
+  const submit = () => {
+    const code = inp.value.trim();
+    if(!code){ modal.querySelector('#codeErr').textContent = 'ادخل الكود'; return; }
+    if(code === p.password){ close(); downloadProduct(p); }
+    else modal.querySelector('#codeErr').textContent = '❌ الكود غير صحيح';
+  };
+  modal.querySelector('#submitCode').onclick = submit;
+  inp.onkeydown = e => { if(e.key === 'Enter') submit(); };
+}
+
+async function downloadProduct(p){
+  if(!p.file){ toast('لا يوجد ملف', 'err'); return; }
+  toast('⏳ جاري التحضير...', 'info');
+  try {
+    const dlRef = ref(db, `products/${p.id}/downloads`);
+    const cur = await get(dlRef);
+    await set(dlRef, (cur.val() || 0) + 1);
+    if(CURRENT_UID){
+      await push(ref(db, `orders/${CURRENT_UID}`), {
+        pid: p.id, name: p.name, price: p.price || 0,
+        type: p.type, downloadedAt: Date.now()
+      });
+      await push(ref(db, `allOrders`), {
+        uid: CURRENT_UID, userName: CURRENT_USER?.name || '',
+        pid: p.id, name: p.name, price: p.price || 0,
+        type: p.type, downloadedAt: Date.now()
+      });
+    }
+  } catch(e){ console.warn(e); }
+  window.open(p.file, '_blank');
+  toast('✅ بدأ التحميل', 'ok');
+}
+
+function renderAddProduct(editId){
+  if(!IS_ADMIN){
+    $app.innerHTML = `<div class="empty"><div class="big">🚫</div><div class="title">ممنوع الوصول</div></div>`;
+    return;
+  }
+  const editing = editId && allProducts[editId];
+  const p = editing || { name:'', description:'', price:'', type:'free', category:'apps', image:'', file:'', password:'', youtube:'', featured:false, pinned:false };
+  let newImageFile = null, newProductFile = null;
+  const imagePreview = p.image || '';
+  const filePreview = p.file || '';
+  $app.innerHTML = `
+    <div class="topbar"><button class="icon-btn" id="back">←</button><h1>${editing ? 'تعديل المنتج' : 'منتج جديد'}</h1></div>
+    <div class="page" style="padding:20px">
+      <div class="field"><label>اسم المنتج *</label><input id="pName" value="${esc(p.name)}" maxlength="80"></div>
+      <div class="field"><label>الوصف</label><textarea id="pDesc" rows="4">${esc(p.description)}</textarea></div>
+      <div class="field"><label>التصنيف</label><select id="pCat">${CATEGORIES.filter(c => c.id !== 'all').map(c => `<option value="${c.id}" ${p.category === c.id ? 'selected' : ''}>${c.ic} ${c.name}</option>`).join('')}</select></div>
+      <div class="field"><label>نوع المنتج</label><select id="pType">
+        <option value="free" ${p.type === 'free' ? 'selected' : ''}>🆓 مجاني</option>
+        <option value="code" ${p.type === 'code' ? 'selected' : ''}>🔐 مجاني بكود</option>
+        <option value="paid" ${p.type === 'paid' ? 'selected' : ''}>💰 مدفوع</option>
+      </select></div>
+      <div class="field" id="priceWrap" style="${p.type === 'paid' ? '' : 'display:none'}"><label>السعر (ج.م)</label><input id="pPrice" type="number" value="${esc(p.price || '')}"></div>
+      <div class="field" id="passWrap" style="${p.type === 'code' ? '' : 'display:none'}"><label>الكود السري</label><input id="pPass" value="${esc(p.password || '')}"></div>
+      <div class="field"><label>رابط يوتيوب (اختياري)</label><input id="pYt" value="${esc(p.youtube || '')}" placeholder="https://youtube.com/..."></div>
+      <div class="field">
+        <label>صورة المنتج</label>
+        <input type="file" id="imgFile" accept="image/*">
+        <div id="imgPreview" style="margin-top:10px;text-align:center">${imagePreview ? `<img src="${esc(imagePreview)}" style="max-width:140px;border-radius:14px;border:1px solid var(--border)">` : ''}</div>
+        <div class="progress-bar" id="imgProgress" style="display:none"><div id="imgBar"></div></div>
+      </div>
+      <div class="field">
+        <label>ملف المنتج (APK / PDF / ZIP / MP4)</label>
+        <input type="file" id="fileFile">
+        <div id="fileStatus" style="margin-top:8px;font-size:12px;color:var(--muted)">${filePreview ? `📎 ملف: <a href="${esc(filePreview)}" target="_blank" style="color:var(--gold)">عرض</a>` : ''}</div>
+        <div class="progress-bar" id="fileProgress" style="display:none"><div id="fileBar"></div></div>
+        <div id="fileHint" style="font-size:11px;color:var(--muted);margin-top:6px">⚡ يرفع تلقائيًا على 3 خدمات</div>
+      </div>
+      <div style="display:flex;gap:10px;margin:20px 0 30px">
+        <label style="display:flex;align-items:center;gap:8px;flex:1"><input type="checkbox" id="pFeat" ${p.featured ? 'checked' : ''} style="width:20px;height:20px;accent-color:var(--gold)"><span style="font-size:13px">⭐ مميز</span></label>
+        <label style="display:flex;align-items:center;gap:8px;flex:1"><input type="checkbox" id="pPin" ${p.pinned ? 'checked' : ''} style="width:20px;height:20px;accent-color:var(--gold)"><span style="font-size:13px">📌 مثبّت</span></label>
+      </div>
+      <button class="btn" id="saveBtn" style="font-size:16px">💾 ${editing ? 'حفظ التعديلات' : 'نشر المنتج'}</button>
+      <div style="height:40px"></div>
+    </div>`;
+  document.getElementById('back').onclick = () => route('home');
+  const typeSel = document.getElementById('pType');
+  typeSel.onchange = () => {
+    document.getElementById('priceWrap').style.display = typeSel.value === 'paid' ? '' : 'none';
+    document.getElementById('passWrap').style.display = typeSel.value === 'code' ? '' : 'none';
+  };
+  document.getElementById('imgFile').onchange = e => {
+    newImageFile = e.target.files[0];
+    if(newImageFile) document.getElementById('imgPreview').innerHTML = `<img src="${URL.createObjectURL(newImageFile)}" style="max-width:140px;border-radius:14px;border:1px solid var(--border)">`;
+  };
+  document.getElementById('fileFile').onchange = e => {
+    newProductFile = e.target.files[0];
+    if(newProductFile) document.getElementById('fileStatus').innerHTML = `📎 جاهز: <b>${esc(newProductFile.name)}</b> (${(newProductFile.size/1024/1024).toFixed(2)} MB)`;
+  };
+  document.getElementById('saveBtn').onclick = async () => {
+    const name = document.getElementById('pName').value.trim();
+    const description = document.getElementById('pDesc').value.trim();
+    const category = document.getElementById('pCat').value;
+    const type = document.getElementById('pType').value;
+    const price = document.getElementById('pPrice').value.trim();
+    const password = document.getElementById('pPass').value.trim();
+    const youtube = document.getElementById('pYt').value.trim();
+    const featured = document.getElementById('pFeat').checked;
+    const pinned = document.getElementById('pPin').checked;
+    if(!name){ toast('اسم المنتج مطلوب', 'err'); return; }
+    if(type === 'code' && !password){ toast('ادخل الكود السري', 'err'); return; }
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true; btn.textContent = '⏳ جاري الحفظ...';
+    try {
+      let imageUrl = p.image || '';
+      let fileUrl = p.file || '';
+      if(newImageFile){
+        const pw = document.getElementById('imgProgress');
+        const pb = document.getElementById('imgBar');
+        pw.style.display = 'block';
+        imageUrl = await uploadFile(newImageFile, prog => { pb.style.width = prog + '%'; });
+        pw.style.display = 'none';
+      }
+      if(newProductFile){
+        const pw = document.getElementById('fileProgress');
+        const pb = document.getElementById('fileBar');
+        pw.style.display = 'block';
+        fileUrl = await uploadFile(newProductFile, prog => { pb.style.width = prog + '%'; });
+        pw.style.display = 'none';
+      }
+      const pid = editing ? p.id : push(ref(db, 'products')).key;
+      const data = {
+        id: pid, name, description, category, type,
+        price: type === 'paid' ? (parseFloat(price) || 0) : 0,
+        password: type === 'code' ? password : '',
+        youtube, image: imageUrl, file: fileUrl,
+        featured, pinned,
+        createdAt: p.createdAt || Date.now(),
+        updatedAt: Date.now(),
+        createdBy: p.createdBy || CURRENT_UID,
+        downloads: p.downloads || 0
+      };
+      await set(ref(db, `products/${pid}`), data);
+      allProducts[pid] = data;
+      toast(editing ? 'تم التعديل ✅' : 'تم النشر 🎉', 'ok');
+      setTimeout(() => route('home'), 400);
+    } catch(e){
+      console.error(e);
+      toast(e.message || 'فشل الحفظ', 'err');
+      btn.disabled = false;
+      btn.textContent = editing ? '💾 حفظ التعديلات' : '🚀 نشر المنتج';
+    }
+  };
+}
+
+function renderAdmin(){
+  if(!IS_ADMIN){
+    $app.innerHTML = `<div class="empty"><div class="big">🚫</div><div class="title">ممنوع الوصول</div></div>`;
+    return;
+  }
+  const products = Object.values(allProducts || {});
+  const totalDownloads = products.reduce((s, p) => s + (p.downloads || 0), 0);
+  const totalPaid = products.filter(p => p.type === 'paid').length;
+  const totalFree = products.filter(p => p.type === 'free' || p.type === 'code').length;
+  $app.innerHTML = `
+    <div class="topbar"><button class="icon-btn" id="back">←</button><h1>لوحة التحكم</h1></div>
+    <div class="page" style="padding:20px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,.2),rgba(124,58,237,.15));padding:18px;border-radius:16px;border:1px solid var(--border);text-align:center">
+          <div style="font-size:32px;font-weight:900;font-family:'Orbitron',sans-serif;color:var(--gold)">${products.length}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">منتج</div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(52,211,153,.1));padding:18px;border-radius:16px;border:1px solid rgba(16,185,129,.3);text-align:center">
+          <div style="font-size:32px;font-weight:900;font-family:'Orbitron',sans-serif;color:#10b981">${totalDownloads}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">تحميل</div>
+        </div>
+        <div style="background:var(--glass);padding:16px;border-radius:16px;border:1px solid var(--border-2);text-align:center">
+          <div style="font-size:24px;font-weight:900;color:var(--gold)">${totalPaid}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">💰 مدفوع</div>
+        </div>
+        <div style="background:var(--glass);padding:16px;border-radius:16px;border:1px solid var(--border-2);text-align:center">
+          <div style="font-size:24px;font-weight:900;color:var(--success)">${totalFree}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">🆓 مجاني</div>
+        </div>
+      </div>
+      <button class="btn" id="addNew" style="margin-bottom:20px">➕ إضافة منتج جديد</button>
+      <div class="section-title" style="padding:0 0 10px"><h2><span class="dash"></span>📦 كل المنتجات</h2></div>
+      ${products.length === 0 ? `<div class="empty"><div class="big">📦</div><div class="title">لا منتجات بعد</div></div>`
+        : products.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).map(p => {
+        const isFree = !p.price || p.price === 0;
+        return `<div style="background:var(--glass);border:1px solid var(--border-2);border-radius:14px;padding:12px;margin-bottom:10px;display:flex;gap:12px;align-items:center">
+          <div style="width:60px;height:60px;border-radius:12px;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0">
+            ${p.image ? `<img src="${esc(p.image)}" style="width:100%;height:100%;object-fit:cover">` : '📦'}
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(p.name)}</div>
+            <div style="font-size:11px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap">
+              <span>${isFree ? '🆓' : '💰 ' + p.price + 'ج.م'}</span>
+              <span>⬇️ ${p.downloads || 0}</span>
+              <span>${timeAgo(p.createdAt)}</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="icon-btn" data-edit="${esc(p.id)}" style="color:var(--gold)">✏️</button>
+            <button class="icon-btn" data-del="${esc(p.id)}" style="color:var(--danger)">🗑️</button>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  document.getElementById('back').onclick = () => route('home');
+  document.getElementById('addNew').onclick = () => route('add-product');
+  document.querySelectorAll('[data-edit]').forEach(b => {
+    b.onclick = () => route('add-product', { id: b.dataset.edit });
+  });
+  document.querySelectorAll('[data-del]').forEach(b => {
+    b.onclick = async () => {
+      if(!confirm('حذف المنتج؟')) return;
+      try {
+        await remove(ref(db, `products/${b.dataset.del}`));
+        delete allProducts[b.dataset.del];
+        toast('تم الحذف', 'ok');
+        renderAdmin();
+      } catch(e){ toast('فشل', 'err'); }
+    };
+  });
+}
+
+function renderOrders(){
+  $app.innerHTML = `
+    <div class="topbar"><button class="icon-btn" id="back">←</button><h1>مشترياتي</h1></div>
+    <div class="page" id="ordersPage"><div class="empty"><div class="big">⏳</div><div class="title">جاري التحميل...</div></div></div>`;
+  document.getElementById('back').onclick = () => { currentTab = 'store'; route('home'); };
+  const off = onValue(ref(db, `orders/${CURRENT_UID}`), snap => {
+    const data = snap.val() || {};
+    const orders = Object.values(data).sort((a,b) => (b.downloadedAt||0)-(a.downloadedAt||0));
+    const container = document.getElementById('ordersPage');
+    if(!container) return;
+    if(orders.length === 0){
+      container.innerHTML = `<div class="empty"><div class="big">📦</div><div class="title">لا مشتريات بعد</div><div class="sub">تصفح المتجر وحمّل منتجاتك</div></div>`;
+      return;
+    }
+    container.innerHTML = orders.map(o => `
+      <div style="background:var(--glass);border:1px solid var(--border-2);border-radius:14px;margin:10px 14px;padding:12px;display:flex;gap:12px">
+        <div style="width:50px;height:50px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">${o.type === 'paid' ? '💰' : '🆓'}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px">${esc(o.name)}</div>
+          <div style="font-size:11px;color:var(--muted)">${o.price > 0 ? o.price + ' ج.م' : 'مجاني'} • ${timeAgo(o.downloadedAt)}</div>
+        </div>
+      </div>
+    `).join('');
+  });
+  listeners.push(off);
+}
+
+function renderProfile(){
+  $app.innerHTML = `
+    <div class="topbar"><button class="icon-btn" id="back">←</button><h1>حسابي</h1></div>
+    <div class="page" style="padding:24px 20px;text-align:center">
+      <div class="av" style="width:100px;height:100px;margin:0 auto 16px;font-size:36px;background:linear-gradient(135deg,var(--gold),var(--purple2));color:#fff">
+        ${CURRENT_USER?.photo ? `<img src="${esc(CURRENT_USER.photo)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">` : initials(CURRENT_USER?.name)}
+      </div>
+      <h2 style="font-size:22px;font-weight:800;margin-bottom:4px">${esc(CURRENT_USER?.name || 'مستخدم')}</h2>
+      <div style="color:var(--muted);font-size:13px">${esc(CURRENT_USER?.email || '')}</div>
+      ${IS_ADMIN ? `<div style="margin-top:10px"><span class="chip active" style="font-size:11px">👑 Admin</span></div>` : ''}
+      <div style="margin-top:30px;display:flex;flex-direction:column;gap:10px">
+        ${IS_ADMIN ? `<button class="btn btn-primary" id="adminBtn">⚙️ لوحة التحكم</button>` : ''}
+        <button class="btn btn-ghost" id="themeBtn">${THEME === 'dark' ? '☀️ الوضع النهاري' : '🌙 الوضع الليلي'}</button>
+        <button class="btn btn-danger" id="logoutBtn">🚪 تسجيل الخروج</button>
+      </div>
+      <div style="margin-top:40px;font-size:11px;color:var(--muted)">Yassin_Vip-HUP © ${new Date().getFullYear()}</div>
+    </div>`;
+  document.getElementById('back').onclick = () => route('home');
+  document.getElementById('themeBtn').onclick = toggleTheme;
+  document.getElementById('adminBtn')?.addEventListener('click', () => route('admin'));
+  document.getElementById('logoutBtn').onclick = async () => {
+    if(confirm('تسجيل الخروج؟')){
+      if(CURRENT_UID) await set(ref(db, `users/${CURRENT_UID}/online`), false);
+      await signOut(auth);
+    }
+  };
+}
+
+function renderChat(){
+  $app.innerHTML = `
+    <div class="topbar"><button class="icon-btn" id="back">←</button><h1>💬 الدردشة</h1></div>
+    <div class="page">
+      <div class="empty"><div class="big">💬</div><div class="title">تواصل معنا</div><div class="sub">راسلنا مباشرة على تليجرام</div></div>
+      <div style="padding:0 20px 30px">
+        <a href="${TELEGRAM_URL}" target="_blank" class="btn" style="text-decoration:none;background:linear-gradient(135deg,#0088cc,#229ED9);color:#fff">📱 راسلنا على تليجرام</a>
+      </div>
+    </div>`;
+  document.getElementById('back').onclick = () => { currentTab = 'store'; route('home'); };
+}
+
+if(!CURRENT_UID) route('login');
+</script>
+</body>
+</html>
